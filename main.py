@@ -31,15 +31,7 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=7, gamma=0.1) #se
 
 alexnet = train_model(alexnet, criterion, optimizer_ft, exp_lr_scheduler, num_epochs=25)
 
-transform = transforms.Compose([        #Here we are defining a variable transform which is a combination of all the image transformations to be carried out on the input image.
-    transforms.Resize(256),             #Resize the image to 256×256 pixels.
-    transforms.CenterCrop(224),         #Crop the image to 224×224 pixels about the center.
-    transforms.ToTensor(),              #Convert the image to PyTorch Tensor data type.
-    transforms.Normalize(               #Normalize the image by setting its mean and standard deviation to the specified values.
-        mean=[0.485, 0.456, 0.406],     
-        std=[0.229, 0.224, 0.225]       
-    )
-])
+
 
 
 

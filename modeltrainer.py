@@ -2,12 +2,27 @@ import time
 import os
 import copy
 from datareader import load_dataset
+from torchvision import datasets, models, transforms
+import torch
 
+
+
+transform = transforms.Compose([        #Here we are defining a variable transform which is a combination of all the image transformations to be carried out on the input image.
+    transforms.Resize(256),             #Resize the image to 256×256 pixels.
+    transforms.CenterCrop(224),         #Crop the image to 224×224 pixels about the center.
+    transforms.ToTensor(),              #Convert the image to PyTorch Tensor data type.
+    transforms.Normalize(               #Normalize the image by setting its mean and standard deviation to the specified values.
+        mean=[0.485, 0.456, 0.406],     
+        std=[0.229, 0.224, 0.225]       
+    )
+])
 
 dataloaders = {
-"train": load_dataset("data/train"),
-"val": load_dataset("data/val")
+"train": load_dataset("data/train", transform),
+"val": load_dataset("data/val", transform)
 }
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
     since = time.time()

@@ -2,10 +2,10 @@ import torchvision
 import torch
 
 
-def load_dataset(path):
+def load_dataset(path, trans):
     train_dataset = torchvision.datasets.ImageFolder(
         root=path,
-        transform=torchvision.transforms.ToTensor()
+        transform=trans
     )
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
